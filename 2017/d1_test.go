@@ -2,12 +2,12 @@ package main
 
 import "testing"
 
-type DataSet struct {
+type D1DataSet struct {
 	code      []int
 	exepected int
 }
 
-var dataSetA = []DataSet{
+var d1DataSetA = []D1DataSet{
 	{[]int{1, 1, 2, 2}, 3},
 	{[]int{1, 1, 1, 1}, 4},
 	{[]int{1, 2, 3, 4}, 0},
@@ -71,16 +71,16 @@ var dataSetA = []DataSet{
 		3, 5, 9, 7, 6, 2, 7, 9, 8}, 1144}}
 
 func TestCaptchaSolverA(t *testing.T) {
-	t.Log("Testing captcha solver A with dataset: \n", dataSetA)
+	t.Log("Testing captcha solver A with dataset: \n", d1DataSetA)
 
-	for _, data := range dataSetA {
+	for _, data := range d1DataSetA {
 		if result := SolveCaptchaA(data.code); data.exepected != result {
 			t.Errorf("Expected score of %d, but it was %d instead.", data.exepected, result)
 		}
 	}
 }
 
-var dataSetB = []DataSet{
+var d1DataSetB = []D1DataSet{
 	{[]int{1, 2, 1, 2}, 6},
 	{[]int{1, 2, 2, 1}, 0},
 	{[]int{1, 2, 3, 4, 2, 5}, 4},
@@ -145,9 +145,9 @@ var dataSetB = []DataSet{
 		3, 5, 9, 7, 6, 2, 7, 9, 8}, 1194}}
 
 func TestCaptchaSolverB(t *testing.T) {
-	t.Log("Testing captcha solver B with dataset: \n", dataSetB)
+	t.Log("Testing captcha solver B with dataset: \n", d1DataSetB)
 
-	for _, data := range dataSetB {
+	for _, data := range d1DataSetB {
 		if result := SolveCaptchaB(data.code); data.exepected != result {
 			t.Errorf("Expected score of %d, but it was %d instead.", data.exepected, result)
 		}

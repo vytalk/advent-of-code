@@ -1,8 +1,5 @@
 package main
 
-func main() {
-}
-
 /*
 The captcha requires you to review a sequence of digits (your puzzle input) and
 find the sum of all digits that match the next digit in the list. The list is
