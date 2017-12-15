@@ -29,8 +29,7 @@ Fortunately, your list has an even number of elements.
 */
 func SolveCaptchaB(code []int) int {
 	sum := 0
-	step := len(code) / 2
-	for i, j := 0, step; i < len(code); i, j = i+1, j+1 {
+	for i, j := 0, len(code)/2; i < len(code); i, j = i+1, j+1 {
 		if j >= len(code) {
 			j = 0
 		}
