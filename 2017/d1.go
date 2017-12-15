@@ -20,3 +20,23 @@ func SolveCaptchaA(code []int) int {
 	}
 	return sum
 }
+
+/*
+Now, instead of considering the next digit, it wants you to consider the digit
+halfway around the circular list. That is, if your list contains 10 items, only
+include a digit in your sum if the digit 10/2 = 5 steps forward matches it.
+Fortunately, your list has an even number of elements.
+*/
+func SolveCaptchaB(code []int) int {
+	sum := 0
+	step := len(code) / 2
+	for i, j := 0, step; i < len(code); i, j = i+1, j+1 {
+		if j >= len(code) {
+			j = 0
+		}
+		if code[i] == code[j] {
+			sum += code[i]
+		}
+	}
+	return sum
+}
