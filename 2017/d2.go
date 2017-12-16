@@ -7,19 +7,34 @@ checksum. For each row, determine the difference between the largest value and t
 smallest value; the checksum is the sum of all of these differences.
 */
 func CalcChecksum(spreadsheet [][]int) int {
-	return 0
+	c := make(chan int)
+
+	for _, v := range spreadsheet {
+		go findRowDiff(v, c)
+	}
+
+	sum := 0
+	for range spreadsheet {
+		sum += <-c
+	}
+	return sum
 }
 
-func findRowDiff(row []int) {
-	smallest := 0
-	largest := 0
-	for _, v := range row {
-		if v > largest {
-			largset = v
+func findRowDiff(row []int, c chan int) {
+	if len(row) <= 1 {
+		c <- 0
+		return
+	}
+
+	largest := row[0]
+	smallest := row[0]
+	for i := 1; i < len(row); i++ {
+		if largest < row[i] {
+			largest = row[i]
 		}
-		if v < smallest {
-			smallest = v
+		if smallest > row[i] {
+			smallest = row[i]
 		}
 	}
-	return largest - smallest
+	c <- largest - smallest
 }
