@@ -38,3 +38,48 @@ func findRowDiff(row []int, c chan int) {
 	}
 	c <- largest - smallest
 }
+
+/*
+It sounds like the goal is to find the only two numbers in each row where one
+evenly divides the other - that is, where the result of the division operation
+is a whole number. They would like you to find those numbers on each line,
+divide them, and add up each line's result
+*/
+func SumDivNumbers(spreadsheet [][]int) int {
+	c := make(chan int)
+
+	for _, v := range spreadsheet {
+		go findDivNumbers(v, c)
+	}
+
+	sum := 0
+	for range spreadsheet {
+		sum += <-c
+	}
+	return sum
+}
+
+func findDivNumbers(row []int, c chan int) {
+	if len(row) <= 1 {
+		c <- 0
+		return
+	}
+
+	for i := 0; i < len(row)-1; i++ {
+		for j := i + 1; j < len(row); j++ {
+			if row[i] > row[j] {
+				if row[i]%row[j] == 0 {
+					c <- row[i] / row[j]
+					return
+				}
+			} else {
+				if row[j]%row[i] == 0 {
+					c <- row[j] / row[i]
+					return
+				}
+			}
+		}
+	}
+	c <- 0
+	return
+}
