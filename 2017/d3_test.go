@@ -23,3 +23,21 @@ func TestCalculateSteps(t *testing.T) {
 		}
 	}
 }
+
+var d3DataSetB = []MemorySteps{
+	{1, 2},
+	{2, 4},
+	{23, 25},
+	{362, 747},
+	{133, 142},
+	{361527, 363010}}
+
+func TestCalcNextClosestMember(t *testing.T) {
+	t.Log("Testing next step B with dataset: \n", d3DataSetA)
+
+	for _, data := range d3DataSetB {
+		if result := CalcNextClosestMember(data.memorySlot); data.expected != result {
+			t.Errorf("Expected score of %d, but it was %d instead.", data.expected, result)
+		}
+	}
+}
