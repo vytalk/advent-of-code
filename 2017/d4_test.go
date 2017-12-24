@@ -520,7 +520,7 @@ var d4DataSetA = []Passphrases{
 		"xzzpiy cjwss jwscs apb bpa",
 		"ydjhhf yeltadb lwi cjdcb ovaox xrdm vkxub",
 		"zax xza admbc lvpzfeh auxn rwasj",
-		"kebx eild nrskdr meja jxczomh gcne"}, 487}}
+		"kebx eild nrskdr meja jxczomh gcne"}, 383}}
 
 func TestPassphraseValidator(t *testing.T) {
 	for _, data := range d4DataSetA {

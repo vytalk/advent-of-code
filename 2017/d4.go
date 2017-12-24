@@ -15,18 +15,36 @@ For example:
 
 */
 func ValidatePassphrases(passphrases []string) int {
-	valid := 0
+	c := make(chan bool)
 	for _, p := range passphrases {
-		local := 0
-		for _, v := range strings.Split(p, " ") {
-			if strings.Count(p, v) > 1 {
-				local++
-			}
-		}
-		if local%2 == 0 {
+		go validatePassphrase(p, c)
+	}
+
+	valid := 0
+	for range passphrases {
+		if <-c {
 			valid++
 		}
 	}
 
 	return valid
+}
+
+func validatePassphrase(passphrase string, c chan bool) {
+	strings := strings.Split(passphrase, " ")
+	for _, v := range strings {
+		count := 0
+		for _, _v := range strings {
+			if v == _v {
+				count++
+			}
+		}
+
+		if count > 1 {
+			c <- false
+			return
+		}
+	}
+
+	c <- true
 }
